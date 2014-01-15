@@ -27,6 +27,7 @@ require_once("ncip_class.php");
 require_once("bibdk_info_class.php");
 
 define("HTTP_PROXY", "phobos.dbc.dk:3128");
+define("SSL_VERSION", "3");
 
 
 class openUserStatus extends webServiceServer {
