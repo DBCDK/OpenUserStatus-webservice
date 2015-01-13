@@ -1,118 +1,75 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ous="http://oss.dbc.dk/ns/openuserstatus" xmlns:ousw="http://oss.dbc.dk/ns/openuserstatus_wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://oss.dbc.dk/ns/openuserstatus_wsdl">
-	<wsdl:types>
-		<xs:schema elementFormDefault="qualified">
-			<xs:import schemaLocation="openuserstatus.xsd" namespace="http://oss.dbc.dk/ns/openuserstatus"/>
-		</xs:schema>
-	</wsdl:types>
-	<wsdl:message name="getUserStatusRequest">
-		<wsdl:part name="body" element="ous:getUserStatusRequest"/>
-	</wsdl:message>
-	<wsdl:message name="getUserStatusResponse">
-		<wsdl:part name="body" element="ous:getUserStatusResponse"/>
-	</wsdl:message>
-	<wsdl:message name="renewLoanRequest">
-		<wsdl:part name="body" element="ous:renewLoanRequest"/>
-	</wsdl:message>
-	<wsdl:message name="renewLoanResponse">
-		<wsdl:part name="body" element="ous:renewLoanResponse"/>
-	</wsdl:message>
-	<wsdl:message name="cancelOrderRequest">
-		<wsdl:part name="body" element="ous:cancelOrderRequest"/>
-	</wsdl:message>
-	<wsdl:message name="cancelOrderResponse">
-		<wsdl:part name="body" element="ous:cancelOrderResponse"/>
-	</wsdl:message>
-	<wsdl:message name="updateOrderRequest">
-		<wsdl:part name="body" element="ous:updateOrderRequest"/>
-	</wsdl:message>
-	<wsdl:message name="updateOrderResponse">
-		<wsdl:part name="body" element="ous:updateOrderResponse"/>
-	</wsdl:message>
-	<wsdl:portType name="getUserStatusPortType">
-		<wsdl:operation name="getUserStatus">
-			<wsdl:input message="ousw:getUserStatusRequest"/>
-			<wsdl:output message="ousw:getUserStatusResponse"/>
-		</wsdl:operation>
-	</wsdl:portType>
-	<wsdl:portType name="renewLoanPortType">
-		<wsdl:operation name="renewLoan">
-			<wsdl:input message="ousw:renewLoanRequest"/>
-			<wsdl:output message="ousw:renewLoanResponse"/>
-		</wsdl:operation>
-	</wsdl:portType>
-	<wsdl:portType name="cancelOrderPortType">
-		<wsdl:operation name="cancelOrder">
-			<wsdl:input message="ousw:cancelOrderRequest"/>
-			<wsdl:output message="ousw:cancelOrderResponse"/>
-		</wsdl:operation>
-	</wsdl:portType>
-	<wsdl:portType name="updateOrderPortType">
-		<wsdl:operation name="updateOrder">
-			<wsdl:input message="ousw:updateOrderRequest"/>
-			<wsdl:output message="ousw:updateOrderResponse"/>
-		</wsdl:operation>
-	</wsdl:portType>
-	<wsdl:binding name="getUserStatusSoapBinding" type="ousw:getUserStatusPortType">
-		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="getUserStatus">
-			<soap:operation soapAction="getUserStatus"/>
-			<wsdl:input name="getUserStatusRequest">
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output name="getUserStatusResponse">
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-	</wsdl:binding>
-	<wsdl:binding name="renewLoanSoapBinding" type="ousw:renewLoanPortType">
-		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="renewLoan">
-			<soap:operation soapAction="renew"/>
-			<wsdl:input name="renewLoanRequest">
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output name="renewLoanResponse">
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-	</wsdl:binding>
-	<wsdl:binding name="cancelOrderSoapBinding" type="ousw:cancelOrderPortType">
-		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="cancelOrder">
-			<soap:operation soapAction="cancelOrder"/>
-			<wsdl:input name="cancelOrderRequest">
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output name="cancelOrderResponse">
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-	</wsdl:binding>
-	<wsdl:binding name="updateOrderSoapBinding" type="ousw:updateOrderPortType">
-		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
-		<wsdl:operation name="updateOrder">
-			<soap:operation soapAction="cancelOrder"/>
-			<wsdl:input name="updateOrderRequest">
-				<soap:body use="literal"/>
-			</wsdl:input>
-			<wsdl:output name="updateOrderResponse">
-				<soap:body use="literal"/>
-			</wsdl:output>
-		</wsdl:operation>
-	</wsdl:binding>
-	<wsdl:service name="openUserStatusService">
-		<wsdl:port name="getUserStatusPortType" binding="ousw:getUserStatusSoapBinding">
-			<soap:address location="http://openuserstatus.addi.dk/1.1/"/>
-		</wsdl:port>
-		<wsdl:port name="renewLoanPortType" binding="ousw:renewLoanSoapBinding">
-			<soap:address location="http://openuserstatus.addi.dk/1.1/"/>
-		</wsdl:port>
-		<wsdl:port name="cancelOrderPortType" binding="ousw:cancelOrderSoapBinding">
-			<soap:address location="http://openuserstatus.addi.dk/1.1/"/>
-		</wsdl:port>
-		<wsdl:port name="updateOrderPortType" binding="ousw:updateOrderSoapBinding">
-			<soap:address location="http://openuserstatus.addi.dk/1.1/"/>
-		</wsdl:port>
-	</wsdl:service>
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://oss.dbc.dk/ns/openuserstatus" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" name="OpenUserStatusService" targetNamespace="http://oss.dbc.dk/ns/openuserstatus">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified">
+      <xs:import namespace="http://oss.dbc.dk/ns/openuserstatus" schemaLocation="openuserstatus.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="GetUserStatusInputMessage">
+    <wsdl:part name="parameters" element="tns:getUserStatusRequest"/>
+  </wsdl:message>
+  <wsdl:message name="GetUserStatusOutputMessage">
+    <wsdl:part name="parameters" element="tns:getUserStatusResponse"/>
+  </wsdl:message>
+  <wsdl:message name="RenewLoanInputMessage">
+    <wsdl:part name="parameters" element="tns:renewLoanRequest"/>
+  </wsdl:message>
+  <wsdl:message name="RenewLoanOutputMessage">
+    <wsdl:part name="parameters" element="tns:renewLoanResponse"/>
+  </wsdl:message>
+  <wsdl:message name="CancelOrderInputMessage">
+    <wsdl:part name="parameters" element="tns:cancelOrderRequest"/>
+  </wsdl:message>
+  <wsdl:message name="CancelOrderOutputMessage">
+    <wsdl:part name="parameters" element="tns:cancelOrderResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="OpenUserStatusPortType">
+    <wsdl:operation name="getUserStatus">
+      <wsdl:input wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/GetUserStatus" message="tns:GetUserStatusInputMessage"/>
+      <wsdl:output wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/GetUserStatusResponse" message="tns:GetUserStatusOutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="renewLoan">
+      <wsdl:input wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/RenewLoan" message="tns:RenewLoanInputMessage"/>
+      <wsdl:output wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/RenewLoanResponse" message="tns:RenewLoanOutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="cancelOrder">
+      <wsdl:input wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/CancelOrder" message="tns:CancelOrderInputMessage"/>
+      <wsdl:output wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/CancelOrderResponse" message="tns:CancelOrderOutputMessage"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OpenUserStatusBinding" type="tns:OpenUserStatusPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getUserStatus">
+      <soap:operation soapAction="http://oss.dbc.dk/ns/openUserStatus/GetUserStatus" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="renewLoan">
+      <soap:operation soapAction="http://oss.dbc.dk/ns/openUserStatus/RenewLoan" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelOrder">
+      <soap:operation soapAction="http://oss.dbc.dk/ns/openUserStatus/CancelOrder" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="OpenUserStatusService">
+    <wsdl:port name="OpenUserStatusPort" binding="tns:OpenUserStatusBinding">
+      <soap:address location="http://openuserstatus.addi.dk/1.2/"/>
+    </wsdl:port>
+  </wsdl:service>
 </wsdl:definitions>
