@@ -2,15 +2,25 @@
    <soapenv:Header/>
    <soapenv:Body>
       <open:cancelOrderRequest>
-         <open:userId>?</open:userId>
-         <!--Optional:-->
-         <open:userPincode>?</open:userPincode>
          <open:agencyId>?</open:agencyId>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
          <!--1 or more repetitions:-->
          <open:cancelOrder>
             <open:orderId>?</open:orderId>
             <open:orderType>?</open:orderType>
          </open:cancelOrder>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
+         <open:userId>?</open:userId>
+         <!--Optional:-->
+         <open:userPincode>?</open:userPincode>
       </open:cancelOrderRequest>
    </soapenv:Body>
 </soapenv:Envelope>

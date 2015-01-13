@@ -2,10 +2,20 @@
    <soapenv:Header/>
    <soapenv:Body>
       <open:getUserStatusRequest>
+         <open:agencyId>?</open:agencyId>
+         <!--Optional:-->
+         <open:authentication>
+            <open:groupIdAut>?</open:groupIdAut>
+            <open:passwordAut>?</open:passwordAut>
+            <open:userIdAut>?</open:userIdAut>
+         </open:authentication>
+         <!--Optional:-->
+         <open:callback>?</open:callback>
+         <!--Optional:-->
+         <open:outputType>?</open:outputType>
          <open:userId>?</open:userId>
          <!--Optional:-->
          <open:userPincode>?</open:userPincode>
-         <open:agencyId>?</open:agencyId>
       </open:getUserStatusRequest>
    </soapenv:Body>
 </soapenv:Envelope>
