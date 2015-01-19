@@ -26,6 +26,7 @@ require_once("oci_class.php");
 require_once("ncip_class.php");
 require_once("bibdk_info_class.php");
 
+//TODO move 2 constants below to ini-file
 define("HTTP_PROXY", "phobos.dbc.dk:3128");
 define("SSL_VERSION", "1");
 
