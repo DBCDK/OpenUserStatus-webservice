@@ -75,7 +75,7 @@ class openUserStatus extends webServiceServer {
   private function _bib_info($bibno) {
     $bib_info = new bibdk_info($this->config->get_value("oci_credentials", "setup"),$this->config->get_section("cache"));
     $this->watch->start("bib_info");
-    $ret = $bib_info->get_bib_info($bibno);    
+    $ret = $bib_info->get_bib_info(self::_strip_agency($bibno));    
     $this->watch->stop("bib_info");
     return $ret;
   }
@@ -113,6 +113,15 @@ class openUserStatus extends webServiceServer {
       die('debug die');
     }
     return $ret;
+  }
+
+
+  /** \brief Removes anything but digits
+   * @param id (string) the ISIL number, like DK-710100
+   * @return (string) only digits, so something like DK-710100 returns 710100
+   */
+  private function _strip_agency($id) {
+    return preg_replace('/\D/', '', $id);
   }
 
 
@@ -290,14 +299,14 @@ class openUserStatus extends webServiceServer {
     $userPincode = $param->userPincode->_value;
     if (!isset($param->agencyId)) return self::_build_error("renewLoan", "Element rule violated");
     $agencyId = $param->agencyId->_value;
-    $bib_id = substr($agencyId, 3);
+    //$bib_id = substr($agencyId, 3);
     if (!isset($param->loanId)) return self::_build_error("renewLoan", "Element rule violated");
     if (is_array($param->loanId))
       foreach ($param->loanId as $l) $loanIds[] = $l->_value;
     else
       $loanIds[] = $param->loanId->_value;
 
-    $fav_info = self::_bib_info($bib_id);
+    $fav_info = self::_bib_info($agencyId);
     if (strtoupper($fav_info["ncip_renew"]) !== "J") return self::_build_error("renewLoan", "Service unavailable");
 
     foreach ($loanIds as $loanId) {
@@ -338,7 +347,7 @@ class openUserStatus extends webServiceServer {
     $userPincode = $param->userPincode->_value;
     if (!isset($param->agencyId)) return self::_build_error("cancelOrder", "Element rule violated");
     $agencyId = $param->agencyId->_value;
-    $bib_id = substr($agencyId, 3);
+    //$bib_id = substr($agencyId, 3);
     if (!isset($param->cancelOrder)) return self::_build_error("cancelOrder", "Element rule violated");
     unset($cancelOrders);
     if (is_array($param->cancelOrder))
@@ -346,7 +355,7 @@ class openUserStatus extends webServiceServer {
     else
       $cancelOrders[] = array("orderId" => $param->cancelOrder->_value->orderId->_value, "orderType" => $param->cancelOrder->_value->orderType->_value );
 
-    $fav_info = self::_bib_info($bib_id);
+    $fav_info = self::_bib_info($agencyId);
     if (strtoupper($fav_info["ncip_cancel"]) !== "J") return self::_build_error("cancelOrder", "Service unavailable");
 
     foreach ($cancelOrders as $cancelOrder) {
@@ -390,7 +399,7 @@ class openUserStatus extends webServiceServer {
     $userPincode = $param->userPincode->_value;
     if (!isset($param->agencyId)) return self::_build_error("updateOrder", "Element rule violated");
     $agencyId = $param->agencyId->_value;
-    $bib_id = substr($agencyId, 3);
+    //$bib_id = substr($agencyId, 3);
     if (!isset($param->updateOrder)) return self::_build_error("updateOrder", "Element rule violated");
     unset($updateOrders);
     if (is_array($param->updateOrder)) {
@@ -405,7 +414,7 @@ class openUserStatus extends webServiceServer {
                              );
     }
 
-    $fav_info = self::_bib_info($bib_id);
+    $fav_info = self::_bib_info($agencyId);
     if (strtoupper($fav_info["ncip_update_request"]) !== "J") return self::_build_error("updateOrder", "Service unavailable");
 
     foreach ($updateOrders as $updateOrder) {
@@ -449,9 +458,9 @@ class openUserStatus extends webServiceServer {
     $userPincode = $param->userPincode->_value;
     if (!isset($param->agencyId)) return self::_build_error("getUserStatus", "Element rule violated");
     $agencyId = $param->agencyId->_value;
-    $bib_id = substr($agencyId, 3);
+    //$bib_id = substr($agencyId, 3);
 
-    $fav_info = self::_bib_info($bib_id);
+    $fav_info = self::_bib_info($agencyId);
 
     $loan_items = array();
     if (strtoupper($fav_info["ncip_lookup_user"]) !== "J") return self::_build_error("getUserStatus", "Service unavailable");
