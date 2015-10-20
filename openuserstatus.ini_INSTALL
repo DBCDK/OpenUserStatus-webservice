@@ -20,6 +20,9 @@ version = 1.3
 ; wsdl for service
 wsdl = openuserstatus.wsdl
 
+;service location used as endpoint in the wsdl-file. If not set, the actual address/location is used
+;service_location = openuserstatus.addi.dk/1.3/
+
 ; --------------
 ; in_house_domain may use ?ShowInfo and use create_sample form
 ;in_house_domain = .dbc.dk
@@ -34,7 +37,6 @@ wsdl = openuserstatus.wsdl
 soapAction[getUserStatus] = getUserStatusRequest
 soapAction[renewLoan] = renewLoanRequest
 soapAction[cancelOrder] = cancelOrderRequest
-soapAction[updateOrder] = updateOrderRequest
 
 ; --------------
 ; validate
@@ -49,6 +51,18 @@ xmlns[] = http://oss.dbc.dk/ns/openuserstatus
 xmlns[ous] = http://oss.dbc.dk/ns/openuserstatus
 
 ; --------------
+; url_override
+; url_override[url_command] = functionToCall
+; if start of the request equals url_command and functionToCall exists, it will be called
+; like: myservice.dk/myversion?url_command
+; functions ShowInfo, Version, HowRU, Wsdl and RegressionTest are found in the abstract service
+; if not specified, defaults to HowRU, ShowInfo, wsdl and Version
+;url_override[HowRU] = HowRU
+;url_override[ShowInfo] = ShowInfo
+;url_override[Version] = Version
+;url_override[wsdl] = Wsdl
+
+; --------------
 ; path to xml-examples
 xmldir = ./xml
 
@@ -58,7 +72,7 @@ oci_credentials = user/password@myoracle.server.dk
 
 ; --------------
 ; logfile for verbose output
-logfile = /tmp/openuserstatus.log
+logfile = /tmp/openuserstatus_13.log
 
 ; set verboselevel
 ;   WARNING - simple warnings
@@ -148,15 +162,6 @@ action[cancelOrder][cancelOrder][] = orderId
 action[cancelOrder][cancelOrder][] = orderType
 action[cancelOrder][] = outputType
 action[cancelOrder][] = callback
-
-action[updateOrder][] = userId
-action[updateOrder][] = userPincode
-action[updateOrder][] = agencyId
-action[updateOrder][updateOrder][] = orderId
-action[updateOrder][updateOrder][] = pickUpAgency
-action[updateOrder][updateOrder][] = pickUpAgencySubdivision
-action[updateOrder][] = outputType
-action[updateOrder][] = callback
 
 ; ==============
 
