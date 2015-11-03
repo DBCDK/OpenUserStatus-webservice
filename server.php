@@ -26,11 +26,6 @@ require_once("oci_class.php");
 require_once("ncip_class.php");
 require_once("ncip_info_class.php");
 
-//TODO move 2 constants below to ini-file
-define("HTTP_PROXY", "phobos.dbc.dk:3128");
-define("SSL_VERSION", "1");
-
-
 class openUserStatus extends webServiceServer {
 
 
@@ -41,8 +36,21 @@ class openUserStatus extends webServiceServer {
     global $_DEBUG;
     parent::__construct($inifile);
     $_DEBUG = $this->debug;
+    self::_set_constant_from_inifile('http_proxy', 'HTTP_PROXY', 'phobos.dbc.dk:3128');
+    self::_set_constant_from_inifile('ssl_version', 'SSL_VERSION', '1');
+    self::_set_constant_from_inifile('ncip_content_type', 'CONTENT_TYPE', 'application/xml');
   }
 
+
+/** \brief _set_constants
+ *
+ */
+  private function _set_constant_from_inifile($ini_name, $const_name, $default) {
+    if (!$value = $this->config->get_value($ini_name, "setup")) {
+      $value = $default;
+    }
+    define($const_name, $value);
+  }
 
 /** \brief _set
 *

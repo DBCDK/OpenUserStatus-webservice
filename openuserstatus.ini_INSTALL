@@ -17,6 +17,19 @@ version = 1.3
 ;only_https = 1
 
 ; --------------
+; proxy setting - defaults to phobos.dbc.dk:3128
+http_proxy = phobos.dbc.dk:3128
+
+; --------------
+; ssl version - dafaults to 1
+ssl_version = 1
+
+; --------------
+; ncip Content-Type header - defaults to application/xml. Aleph-systems require this to be text/xml
+ncip_content_type = application/xml
+;ncip_content_type = text/xml
+
+; --------------
 ; wsdl for service
 wsdl = openuserstatus.wsdl
 
