@@ -167,10 +167,10 @@ class openUserStatus extends webServiceServer {
   private function lookup_loan($params,$fav_info,$itemid) {
     $ncip_lookup_item = new ncip();
     $lookup_item = $ncip_lookup_item->request(
-      $fav_info["address"],
+      $fav_info["ncip_lookup_user_address"],
       array("Ncip" => "LookupItem",
             "FromAgencyId" => "DK-190101",
-            "FromAgencyAuthentication" => $fav_info["password"],
+            "FromAgencyAuthentication" => $fav_info["ncip_lookup_user_password"],
             "ToAgencyId" => $params->agencyId->_value,
             "UniqueItemId" => $itemid),
       $this->debug == 'ncip');
@@ -181,10 +181,10 @@ class openUserStatus extends webServiceServer {
   private function lookup_request($params,$fav_info,$itemid) {
     $ncip_lookup_request = new ncip();
     $lookup_request = $ncip_lookup_request->request(
-      $fav_info["address"],
+      $fav_info["ncip_lookup_user_address"],
       array("Ncip" => "LookupRequest",
             "FromAgencyId" => "DK-190101",
-            "FromAgencyAuthentication" => $fav_info["password"],
+            "FromAgencyAuthentication" => $fav_info["ncip_lookup_user_password"],
             "ToAgencyId" => $params->agencyId->_value,
             "UniqueRequestId" => $itemid),
       $this->debug == 'ncip');
@@ -195,10 +195,10 @@ class openUserStatus extends webServiceServer {
   private function lookup_user($params,$fav_info) {
     $ncip_lookup_user = new ncip();
     $lookup_user = $ncip_lookup_user->request(
-      $fav_info["address"],
+      $fav_info["ncip_lookup_user_address"],
       array("Ncip" => "LookupUser",
             "FromAgencyId" => "DK-190101",
-            "FromAgencyAuthentication" => $fav_info["password"],
+            "FromAgencyAuthentication" => $fav_info["ncip_lookup_user_password"],
             "ToAgencyId" => $params->agencyId->_value,
             "UserId" => $params->userId->_value,
             "UserPIN" => $params->userPincode->_value),
@@ -319,10 +319,10 @@ class openUserStatus extends webServiceServer {
 
     foreach ($loanIds as $loanId) {
       $ncip_renew = new ncip();
-      $renew = $ncip_renew->request($fav_info["address"],
+      $renew = $ncip_renew->request($fav_info["ncip_lookup_user_address"],
                                     array("Ncip" => "RenewItem",
                                           "FromAgencyId" => "DK-190101",
-                                          "FromAgencyAuthentication" => $fav_info["password"],
+                                          "FromAgencyAuthentication" => $fav_info["ncip_lookup_user_password"],
                                           "ToAgencyId" => $agencyId,
                                           "UniqueUserId" => array("UserIdentifierValue" => $userId, "UniqueAgencyId" => $agencyId),
                                           "UniqueItemId" => array("ItemIdentifierValue" => $loanId, "UniqueAgencyId" => $agencyId ) ) );
@@ -368,10 +368,10 @@ class openUserStatus extends webServiceServer {
 
     foreach ($cancelOrders as $cancelOrder) {
       $ncip_cancel = new ncip();
-      $cancel = $ncip_cancel->request($fav_info["address"],
+      $cancel = $ncip_cancel->request($fav_info["ncip_lookup_user_address"],
                                       array("Ncip" => "CancelRequestItem",
                                             "FromAgencyId" => "DK-190101",
-                                            "FromAgencyAuthentication" => $fav_info["password"],
+                                            "FromAgencyAuthentication" => $fav_info["ncip_lookup_user_password"],
                                             "ToAgencyId" => $agencyId,
                                             "UniqueUserId" => array("UserIdentifierValue" => $userId, "UniqueAgencyId" => $agencyId),
                                             "UniqueRequestId" => array("RequestIdentifierValue" => $cancelOrder["orderId"], "UniqueAgencyId" => $agencyId),
@@ -427,10 +427,10 @@ class openUserStatus extends webServiceServer {
 
     foreach ($updateOrders as $updateOrder) {
       $ncip_update = new ncip();
-      $update = $ncip_update->request($fav_info["address"],
+      $update = $ncip_update->request($fav_info["ncip_lookup_user_address"],
                                       array("Ncip" => "UpdateRequestItem",
                                             "FromAgencyId" => "DK-190101",
-                                            "FromAgencyAuthentication" => $fav_info["password"],
+                                            "FromAgencyAuthentication" => $fav_info["ncip_lookup_user_password"],
                                             "ToAgencyId" => self::_pack_agency($updateOrder['pickUpAgency'], $updateOrder['pickUpAgencySubdivision']),
                                             "UniqueUserId" => array("UserIdentifierValue" => $userId, "UniqueAgencyId" => $agencyId),
                                             "UniqueRequestId" => array("RequestIdentifierValue" => $updateOrder["orderId"], "UniqueAgencyId" => $agencyId),
