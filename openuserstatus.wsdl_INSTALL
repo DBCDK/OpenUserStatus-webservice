@@ -23,6 +23,12 @@
   <wsdl:message name="CancelOrderOutputMessage">
     <wsdl:part name="parameters" element="tns:cancelOrderResponse"/>
   </wsdl:message>
+  <wsdl:message name="UpdateOrderInputMessage">
+    <wsdl:part name="parameters" element="tns:updateOrderRequest"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateOrderOutputMessage">
+    <wsdl:part name="parameters" element="tns:updateOrderResponse"/>
+  </wsdl:message>
   <wsdl:portType name="OpenUserStatusPortType">
     <wsdl:operation name="getUserStatus">
       <wsdl:input wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/GetUserStatus" message="tns:GetUserStatusInputMessage"/>
@@ -35,6 +41,10 @@
     <wsdl:operation name="cancelOrder">
       <wsdl:input wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/CancelOrder" message="tns:CancelOrderInputMessage"/>
       <wsdl:output wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/CancelOrderResponse" message="tns:CancelOrderOutputMessage"/>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrder">
+      <wsdl:input wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/UpdateOrder" message="tns:UpdateOrderInputMessage"/>
+      <wsdl:output wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/UpdateOrderResponse" message="tns:UpdateOrderOutputMessage"/>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="OpenUserStatusBinding" type="tns:OpenUserStatusPortType">
@@ -59,6 +69,15 @@
     </wsdl:operation>
     <wsdl:operation name="cancelOrder">
       <soap:operation soapAction="http://oss.dbc.dk/ns/openUserStatus/CancelOrder" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateOrder">
+      <soap:operation soapAction="http://oss.dbc.dk/ns/openUserStatus/UpdateOrder" style="document"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>

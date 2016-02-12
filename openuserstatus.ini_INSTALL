@@ -49,6 +49,7 @@ wsdl = openuserstatus.wsdl
 ; Can be found in the wsdl but is stated here for convenience
 soapAction[getUserStatus] = getUserStatusRequest
 soapAction[renewLoan] = renewLoanRequest
+soapAction[updateOrder] = updateOrderRequest
 soapAction[cancelOrder] = cancelOrderRequest
 
 ; --------------
@@ -155,26 +156,36 @@ dump_timer = openuserstatus(%s)
 ; from url: action=thisSoapAction&some.number=nn&another.number=mm
 ;
 
+action[getUserStatus][] = agencyId
+action[getUserStatus][] = callback
+action[getUserStatus][] = outputType
 action[getUserStatus][] = userId
 action[getUserStatus][] = userPincode
-action[getUserStatus][] = agencyId
-action[getUserStatus][] = outputType
-action[getUserStatus][] = callback
 
-action[renewLoan][] = userId
-action[renewLoan][] = userPincode
 action[renewLoan][] = agencyId
+action[renewLoan][] = callback
 action[renewLoan][] = loanId
 action[renewLoan][] = outputType
-action[renewLoan][] = callback
+action[renewLoan][] = userId
+action[renewLoan][] = userPincode
 
-action[cancelOrder][] = userId
-action[cancelOrder][] = userPincode
 action[cancelOrder][] = agencyId
+action[cancelOrder][] = callback
 action[cancelOrder][cancelOrder][] = orderId
 action[cancelOrder][cancelOrder][] = orderType
 action[cancelOrder][] = outputType
-action[cancelOrder][] = callback
+action[cancelOrder][] = userId
+action[cancelOrder][] = userPincode
+
+action[updateOrder][] = agencyId
+action[updateOrder][] = callback
+action[updateOrder][updateOrder][] = orderId
+action[updateOrder][updateOrder][] = pickUpAgency
+action[updateOrder][updateOrder][] = pickUpAgencySubdivision
+action[updateOrder][] = outputType
+action[updateOrder][] = userId
+action[updateOrder][] = userPincode
+
 
 ; ==============
 
