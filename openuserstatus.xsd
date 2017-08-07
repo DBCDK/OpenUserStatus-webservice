@@ -28,6 +28,11 @@
 				<xs:element ref="ous:getUserStatusError"/>
 				<xs:sequence>
 					<xs:element ref="ous:userId"/>
+				  <xs:element ref="ous:userName" minOccurs="0"/>
+				  <xs:element ref="ous:userAddress" minOccurs="0"/>
+				  <xs:element ref="ous:userPostalCode" minOccurs="0"/>
+				  <xs:element ref="ous:userCountry" minOccurs="0"/>
+				  <xs:element ref="ous:userMail" minOccurs="0"/>
 					<xs:element ref="ous:userStatus"/>
 				</xs:sequence>
 			</xs:choice>
@@ -484,6 +489,16 @@
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
+	<xs:element name="userAddress" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Address of user in local library system</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="userCountry" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Country of user in local library system</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="userId" type="xs:string">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">Identifier of user in local library system</xs:documentation>
@@ -494,9 +509,24 @@
 			<xs:documentation xml:lang="en">User identifier (for authentication purposes)</xs:documentation>
 		</xs:annotation>
 	</xs:element>
+	<xs:element name="userMail" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Mail address of user in local library system</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="userName" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Name of user in local library system</xs:documentation>
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="userPincode" type="xs:integer">
 		<xs:annotation>
 			<xs:documentation xml:lang="en">User's pincode in local library system</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="userPostalCode" type="xs:string">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">PostalCode of user in local library system</xs:documentation>
 		</xs:annotation>
 	</xs:element>
 	<xs:element name="userStatus">
@@ -545,6 +575,7 @@
 			<xs:enumeration value="Unknown user"/>
 			<xs:enumeration value="User access denied"/>
 			<xs:enumeration value="User authentification failed"/>
+			<xs:enumeration value="Agency authentication failed"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="renewLoanErrorType">
@@ -590,6 +621,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="orderStatusType">
 		<xs:restriction base="xs:string">
+			<xs:enumeration value="Active"/>
 			<xs:enumeration value="In process"/>
 			<xs:enumeration value="Available for pickup"/>
 			<xs:enumeration value="Expired"/>
@@ -601,6 +633,7 @@
 			<xs:enumeration value="Hold"/>
 			<xs:enumeration value="Loan"/>
 			<xs:enumeration value="Non-returnable Copy"/>
+			<xs:enumeration value="normal"/>
 			<xs:enumeration value="Stack Retrieval"/>
 		</xs:restriction>
 	</xs:simpleType>

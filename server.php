@@ -97,11 +97,7 @@ class openUserStatus extends webServiceServer {
  *
  */
   private function _bib_navn($favorit) {
-    if (!empty($favorit["navn_k"])) {
-      return $favorit["navn_k"];
-    } else {
-      return $favorit["navn"];
-    }
+    return !empty($favorit["navn_k"]) ? $favorit["navn_k"] : $favorit["navn"];
   }
 
 
@@ -160,7 +156,7 @@ class openUserStatus extends webServiceServer {
     } else {
       $dateTime = new DateTime($date);
     }
-  return $dateTime->format(DateTime::W3C);
+    return $dateTime->format(DateTime::W3C);
   }
 
 
@@ -213,8 +209,7 @@ class openUserStatus extends webServiceServer {
   }
 
 
-  private function set_basic_order(&$result, $request)
-  {
+  private function set_basic_order(&$result, $request) {
     self::_set($result, "orderDate", self::_parse_date_time($request["DatePlaced"]));
     self::_set($result, "orderId", $request["UniqueRequestId"]["RequestIdentifierValue"]);
     self::_set($result, "orderStatus", ucfirst(strtolower($request["RequestStatusType"])));
@@ -301,7 +296,7 @@ class openUserStatus extends webServiceServer {
   */
 
   function renewLoan($param) {
-  if (!$this->aaa->has_right("openuserstatus", 500)) return self::_build_error("renewLoan", "authentication_error");
+    if (!$this->aaa->has_right("openuserstatus", 500)) return self::_build_error("renewLoan", "authentication_error");
     if (!isset($param->userId)) return self::_build_error("renewLoan", "Element rule violated");
     $userId = $param->userId->_value;
     $userPincode = $param->userPincode->_value;
@@ -349,7 +344,7 @@ class openUserStatus extends webServiceServer {
   */
 
   function cancelOrder($param) {
-  if (!$this->aaa->has_right("openuserstatus", 500)) return self::_build_error("cancelOrder", "authentication_error");
+    if (!$this->aaa->has_right("openuserstatus", 500)) return self::_build_error("cancelOrder", "authentication_error");
     if (!isset($param->userId)) return self::_build_error("cancelOrder", "Element rule violated");
     $userId = $param->userId->_value;
     $userPincode = $param->userPincode->_value;
@@ -401,7 +396,7 @@ class openUserStatus extends webServiceServer {
   */
 
   function updateOrder($param) {
-  if (!$this->aaa->has_right("openuserstatus", 500)) return self::_build_error("updateOrder", "authentication_error");
+    if (!$this->aaa->has_right("openuserstatus", 500)) return self::_build_error("updateOrder", "authentication_error");
     if (!isset($param->userId)) return self::_build_error("updateOrder", "Element rule violated");
     $userId = $param->userId->_value;
     $userPincode = $param->userPincode->_value;
@@ -434,8 +429,8 @@ class openUserStatus extends webServiceServer {
                                             "ToAgencyId" => self::_pack_agency($updateOrder['pickUpAgency'], $updateOrder['pickUpAgencySubdivision']),
                                             "UniqueUserId" => array("UserIdentifierValue" => $userId, "UniqueAgencyId" => $agencyId),
                                             "UniqueRequestId" => array("RequestIdentifierValue" => $updateOrder["orderId"], "UniqueAgencyId" => $agencyId),
-                                           )
-                                     );
+                                           ),
+                                      $this->debug == 'ncip');
       unset($orderStatus);
       self::_set($orderStatus, 'orderId', $updateOrder["orderId"]);
       if (isset($update["Problem"])) {
@@ -496,13 +491,33 @@ class openUserStatus extends webServiceServer {
       }
     // Set output object for xml data creation
     self::_set($xresponse, 'userId', $userId);
+    if ($userName = $lookup_user['UnstructuredPersonalUserName']) {
+      self::_set($xresponse, 'userName', $userName);
+    }
+    elseif (($givenName = $lookup_user['GivenName']) && ($surName = $lookup_user['SurName'])) {
+      self::_set($xresponse, 'userName', $givenName . ' ' . $surName);
+    }
+    if ($street = $lookup_user['Street']) {
+      self::_set($xresponse, 'userAddress', $street);
+    }
+    if ($postalCode = $lookup_user['PostalCode']) {
+      self::_set($xresponse, 'userPostalCode', $postalCode);
+    }
+    if ($country = $lookup_user['Country']) {
+      self::_set($xresponse, 'userCountry', $country);
+    }
+    if ($electronicAddressData = $lookup_user['ElectronicAddressData']) {
+      self::_set($xresponse, 'userMail', $electronicAddressData);
+    }
     if (is_array($lookup_items)) foreach($lookup_items as $item) {
       self::_add($xloans, 'loan', self::set_loan($item));
     }
     self::_set($xloans, 'loansCount', count($lookup_items));
     self::_set($xuserStatus, 'loanedItems', $xloans);
-    if (is_array($lookup_requests)) foreach($lookup_requests as $request) {
-      self::_add($xorders, 'order', self::set_order($request));
+    if (is_array($lookup_requests)) {
+      foreach($lookup_requests as $request) {
+        self::_add($xorders, 'order', self::set_order($request));
+      }
     }
     self::_set($xorders, 'ordersCount', count($lookup_requests));
     self::_set($xuserStatus, 'orderedItems', $xorders);

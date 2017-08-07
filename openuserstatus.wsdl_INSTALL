@@ -42,7 +42,7 @@
       <wsdl:input wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/CancelOrder" message="tns:CancelOrderInputMessage"/>
       <wsdl:output wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/CancelOrderResponse" message="tns:CancelOrderOutputMessage"/>
     </wsdl:operation>
-    <wsdl:operation name="UpdateOrder">
+    <wsdl:operation name="updateOrder">
       <wsdl:input wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/UpdateOrder" message="tns:UpdateOrderInputMessage"/>
       <wsdl:output wsaw:Action="http://oss.dbc.dk/ns/openUserStatus/UpdateOrderResponse" message="tns:UpdateOrderOutputMessage"/>
     </wsdl:operation>

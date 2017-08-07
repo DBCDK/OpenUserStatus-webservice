@@ -11,7 +11,7 @@
 ;version
 ; Note that the version is used as part of the cache key, so do not run 2 versions of the service with identical
 ; version name, unless you specificly want them to share cache
-version = 1.3
+version = 1.5
 
 ; set only_https to accept https call only
 ;only_https = 1
@@ -156,12 +156,18 @@ dump_timer = openuserstatus(%s)
 ; from url: action=thisSoapAction&some.number=nn&another.number=mm
 ;
 
+action[getUserStatus][authentication][] = groupIdAut
+action[getUserStatus][authentication][] = passwordAut
+action[getUserStatus][authentication][] = userIdAut
 action[getUserStatus][] = agencyId
 action[getUserStatus][] = callback
 action[getUserStatus][] = outputType
 action[getUserStatus][] = userId
 action[getUserStatus][] = userPincode
 
+action[renewLoan][authentication][] = groupIdAut
+action[renewLoan][authentication][] = passwordAut
+action[renewLoan][authentication][] = userIdAut
 action[renewLoan][] = agencyId
 action[renewLoan][] = callback
 action[renewLoan][] = loanId
@@ -169,6 +175,9 @@ action[renewLoan][] = outputType
 action[renewLoan][] = userId
 action[renewLoan][] = userPincode
 
+action[cancelOrder][authentication][] = groupIdAut
+action[cancelOrder][authentication][] = passwordAut
+action[cancelOrder][authentication][] = userIdAut
 action[cancelOrder][] = agencyId
 action[cancelOrder][] = callback
 action[cancelOrder][cancelOrder][] = orderId
@@ -177,6 +186,9 @@ action[cancelOrder][] = outputType
 action[cancelOrder][] = userId
 action[cancelOrder][] = userPincode
 
+action[updateOrder][authentication][] = groupIdAut
+action[updateOrder][authentication][] = passwordAut
+action[updateOrder][authentication][] = userIdAut
 action[updateOrder][] = agencyId
 action[updateOrder][] = callback
 action[updateOrder][updateOrder][] = orderId
