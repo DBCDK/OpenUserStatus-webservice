@@ -214,8 +214,8 @@
 			<xs:sequence>
 				<xs:element ref="ous:fiscalTransactionAmount"/>
 				<xs:element ref="ous:fiscalTransactionCurrency"/>
-				<xs:element ref="ous:fiscalTransactionDate"/>
-				<xs:element ref="ous:fiscalTransactionType"/>
+				<xs:element ref="ous:fiscalTransactionDate" minOccurs="0"/>
+				<xs:element ref="ous:fiscalTransactionType" minOccurs="0"/>
 				<xs:element ref="ous:bibliographicRecordId" minOccurs="0"/>
 				<xs:element ref="ous:author" minOccurs="0"/>
 				<xs:element ref="ous:title" minOccurs="0"/>
@@ -625,6 +625,8 @@
 			<xs:enumeration value="In process"/>
 			<xs:enumeration value="Available for pickup"/>
 			<xs:enumeration value="Expired"/>
+			<xs:enumeration value="Requested via ill"/>
+			<xs:enumeration value="At reservation shelf"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="orderTypeType">
