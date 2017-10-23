@@ -318,7 +318,7 @@ class openUserStatus extends webServiceServer {
                                     array("Ncip" => "RenewItem",
                                           "FromAgencyId" => "DK-190101",
                                           "FromAgencyAuthentication" => $fav_info["ncip_lookup_user_password"],
-                                          "ToAgencyId" => $agencyId,
+                                          "ToAgencyId" => self::_pack_agency($agencyId),
                                           "UniqueUserId" => array("UserIdentifierValue" => $userId, "UniqueAgencyId" => $agencyId),
                                           "UniqueItemId" => array("ItemIdentifierValue" => $loanId, "UniqueAgencyId" => $agencyId ) ) );
       unset($loanStatus);
@@ -367,7 +367,7 @@ class openUserStatus extends webServiceServer {
                                       array("Ncip" => "CancelRequestItem",
                                             "FromAgencyId" => "DK-190101",
                                             "FromAgencyAuthentication" => $fav_info["ncip_lookup_user_password"],
-                                            "ToAgencyId" => $agencyId,
+                                            "ToAgencyId" => self::_pack_agency($agencyId),
                                             "UniqueUserId" => array("UserIdentifierValue" => $userId, "UniqueAgencyId" => $agencyId),
                                             "UniqueRequestId" => array("RequestIdentifierValue" => $cancelOrder["orderId"], "UniqueAgencyId" => $agencyId),
                                             "RequestType" => $cancelOrder["orderType"] ) );
@@ -460,10 +460,9 @@ class openUserStatus extends webServiceServer {
     $userId = $param->userId->_value;
     $userPincode = $param->userPincode->_value;
     if (!isset($param->agencyId)) return self::_build_error("getUserStatus", "Element rule violated");
-    $agencyId = $param->agencyId->_value;
-    //$bib_id = substr($agencyId, 3);
+    $param->agencyId->_value = self::_pack_agency($param->agencyId->_value);
 
-    $fav_info = self::_bib_info($agencyId);
+    $fav_info = self::_bib_info($param->agencyId->_value);
 
     $loan_items = array();
     if (strtoupper($fav_info["ncip_lookup_user"]) !== "J") return self::_build_error("getUserStatus", "Service unavailable");
